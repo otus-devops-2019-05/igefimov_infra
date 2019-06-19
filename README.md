@@ -1,4 +1,5 @@
-# igefimov_infra
+# igefimov_infra :czech_republic:
+
 igefimov Infra repository
 ## Homework 1
 * Integrated personal Slack channel #igor_efimov with Travis CI 
@@ -12,7 +13,7 @@ igefimov Infra repository
     * bastion with public IP address(35.210.33.211)
     * someinternalhost with internal-only IP address(10.132.0.5)
 
-###### Independent task
+###### Independent task :bangbang:
 Come up with one liner for  ssh connection to the someinternalhost through the bastion from my local machine.
 
 **Solution 1:**
@@ -28,7 +29,7 @@ ssh-add /Users/efimovi/Otus/DevOps_course/.ssh/gcp
 ssh -A -J gcp@35.210.33.211 gcp@10.132.0.5
 ```
 
-###### Extra task :star:
+###### Extra task :star: :star: :star:
 Come up with ssh alias in order to connect to the someinternalhost through the bastion from my local machine
 
 **Solution**
