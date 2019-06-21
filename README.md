@@ -89,3 +89,13 @@ Couldn't connect to VPN server:
 Checked firewall rules and networking VM section.
 Added 2 more networking tags: <VPN_hostname> <firewall_rule>
 Overall there should be 4 networking tags: bastion, http-server, https-server, vpn-16290
+
+###### Extra task :star: :star: :star:
+Enable TLS encryption for VPN Server UI
+
+**Solution**
+* Register domain name igorefimov.ml and link it to bastion public IP address
+* Update VPN Server setting with a new domain
+
+<img src="images/vpn_server_domain_encrypted.png" width=700>
+
