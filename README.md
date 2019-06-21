@@ -10,8 +10,11 @@ igefimov Infra repository
 * Signed up for a free GCP account
 * Uploaded public ssh key to the platform 
 * Spinned up 2 VM(one with public + internal IP and one with internal IP only) in the europe-west1-d zone:
-    * bastion_IP = 35.210.33.211
-    * someinternalhost_IP = 10.132.0.5
+```bash
+bastion_IP = 35.210.33.211
+someinternalhost_IP = 10.132.0.5
+
+```
 
 ###### Independent task :bangbang:
 Come up with one liner for  ssh connection to the someinternalhost through the bastion from my local machine.
@@ -75,9 +78,13 @@ systemctl enable pritunl mongod
     * credentials: test/6214157507237678334670591556762
 
 **Problems** :sweat_smile:
+
 Couldn't connect to VPN server: 
+```bash
 2019-06-20 11:32:44.201117 UDP link local: (not bound)
 2019-06-20 11:32:44.201131 UDP link remote: [AF_INET]35.210.33.211:16290
+```
+**Solution**
 
 Checked firewall rules and networking VM section.
 Added 2 more networking tags: <VPN_hostname> <firewall_rule>
