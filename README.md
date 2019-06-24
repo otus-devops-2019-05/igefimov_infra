@@ -99,3 +99,25 @@ Enable TLS encryption for VPN Server UI
 
 <img src="images/vpn_server_domain_encrypted.png" width=700>
 
+## Homework 3
+* Using command "git mv" moved cloud-bastion.ovpn and setupvpn.sh to the VPN folder
+* Created 3 bash scrips:
+    * install_ruby.sh - installs Ruby
+    * install_mongodb.sh - installs MongoDB
+    * deploy.sh - deploys reddit-app application on the port 9292
+ 
+```bash
+testapp_IP = 35.205.198.5
+testapp_port = 9292
+```
+
+###### Extra task :star: :star: :star:
+* Create start up script, that will be running during the VM initialization
+* Create firewall rule using gcloud command
+
+**Solution**
+I've created launch_reddit-app.sh which:
+* Prepares startup script using already existing 3 bash scripts(install_ruby, install_mongodb, deploy)
+* Starts a new VM using gcloud command with attached startup script
+* Creates new firewall rule for port 9292
+* Removes startup script
