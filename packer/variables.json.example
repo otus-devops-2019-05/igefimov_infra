@@ -1,0 +1,6 @@
+{
+  "project_id": "infra-XXXXXX",
+  "source_image_family": "ubuntu-1604-lts",
+  "image_description": "Ubuntu 16 lts image with installed Ruby and MongoDB",
+  "tags": "puma-server"
+}
