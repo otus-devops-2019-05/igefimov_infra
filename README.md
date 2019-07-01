@@ -116,8 +116,37 @@ testapp_port = 9292
 * Create firewall rule using gcloud command
 
 **Solution**
-I've created launch_reddit-app.sh which:
+I've created l  aunch_reddit-app.sh which:
 * Prepares startup script using already existing 3 bash scripts(install_ruby, install_mongodb, deploy)
 * Starts a new VM using gcloud command with attached startup script
 * Creates new firewall rule for port 9292
 * Removes startup script
+
+## Homework 4
+**Lesson 7: Модели управления инфраструктурой.**
+
+I've created image files for packer.
+First image has preinstalled dependencies as MongoDB and Ruby:
+```bash
+packer (packer-base) $ packer validate -var-file=variables.json ubuntu16.json
+Template validated successfully.
+
+packer build -var-file=variables.json ubuntu16.json
+==> Builds finished. The artifacts of successful builds are:
+--> googlecompute: A disk image was created: reddit-base-1562016331
+```
+
+Second image is "baked" and is based on previous image("source_image_family": "reddit-base"):
+```bash
+acker validate -var-file=variables.json immutable.json
+Template validated successfully.
+
+
+packer build -var-file=variables.json immutable.json
+==> Builds finished. The artifacts of successful builds are:
+--> googlecompute: A disk image was created: reddit-full-1562018315
+
+```
+
+Created config-scripts/create_reddit_vm.sh that creates VM from previously built image with puma server is already 
+running and creates firewall rule for port 9292 
