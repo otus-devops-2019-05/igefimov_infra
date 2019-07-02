@@ -1,0 +1,12 @@
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/gcp/reddit
+ExecStart=/usr/local/bin/pumactl start &
+
+[Install]
+WantedBy=multi-user.target
+
