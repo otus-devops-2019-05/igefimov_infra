@@ -138,7 +138,7 @@ packer build -var-file=variables.json ubuntu16.json
 
 Second image is "baked" and is based on previous image("source_image_family": "reddit-base"):
 ```bash
-acker validate -var-file=variables.json immutable.json
+packer validate -var-file=variables.json immutable.json
 Template validated successfully.
 
 
@@ -150,3 +150,167 @@ packer build -var-file=variables.json immutable.json
 
 Created config-scripts/create_reddit_vm.sh that creates VM from previously built image with puma server is already 
 running and creates firewall rule for port 9292 
+
+## Homework 5
+**Lesson 8: Практика Infrastructure as a Code (IaC).**
+
+Prerequisites:
+* Make sure that "reddit-base" image is present
+* Remove ssh key for gcp user from Compute Engine -> Metadata -> SSH-keys
+* Install terraform v 0.11.7
+* Add to .gitignore temporary/state terraform files
+
+
+Created main.tf and defined **Provider** section- here we state that terraform can manage GCP resources via API calls
+
+```bash
+terraform init
+Initializing provider plugins...
+- Checking for available provider plugins on https://releases.hashicorp.com...
+- Downloading plugin for provider "google" (2.0.0)...
+Terraform has been successfully initialized!
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary
+```
+
+Terraform provides wide list of resource to work with GCP: https://www.terraform.io/docs/providers/google/index.html
+Resource used to start a VM: https://www.terraform.io/docs/providers/google/r/compute_instance.html
+
+
+Let's create a new instance and firewall rule. See terraform/main.tf file in git repo
+```bash
+terraform plan
+terraform apply -auto-approve
+
+```
+As a result of previous command is new file **terraform.tfstate** where terraform stores state of all created resources
+
+```bash
+terraform show
+terraform show | grep nat_ip
+```
+
+Create a new file outputs.tf:
+
+```hcl-terraform
+output "app_external_ip" {
+	value = "${google_compute_instance.app.network_interface.0.access_config.0.nat_ip}"
+}
+```
+
+Refresh the value:
+```bash
+$ terraform refresh
+```
+Now we can get external IP using: 
+```bash
+$ terraform output
+app_external_ip = 35.187.115.196
+
+```
+
+
+Define new section **Provisioners**. Provisioners are executed during the resource creation/deletion and allow to 
+execute commands on remote or local machine.
+
+*Let's use provisioners to deploy last version of application*  
+
+```hcl-terraform
+  # Here we define Provisioners and how they connect to the VM(protocol, credentials)
+  connection {
+    type = "ssh"
+    user = "gcp"
+    agent = false
+    private_key = "${file("/Users/efimovi/Otus/DevOps_course/.ssh/gcp")}"
+  }
+
+  provisioner "file" {
+    source = "files/puma.service"
+    destination = "/tmp/puma.service"
+  }
+
+  provisioner "remote-exec" {
+    script = "files/deploy.sh"
+  }
+```
+
+Because Provisioners run only after creation/deletion of the resource, first we need to delete our VM.
+Let's use command *taint* that will recreate specific resource after next *terraform apply* command:
+
+```bash
+$ terraform taint google_compute_instance.app
+The resource google_compute_instance.app in the module root
+has been marked as tainted!
+```
+
+```bash
+terraform plan
+terraform apply
+```
+
+Let's parametrize config files and describe variables in the variables.tf:
+```hcl-terraform
+variable project {
+  description = "Project ID"
+}
+variable region {
+  description = "Region"
+  # Значение по умолчанию
+  default = "europe-west1"
+}
+variable public_key_path {
+  # Описание переменной
+  description = "Path to the public key used for ssh access"
+}
+variable disk_image {
+  description = "Disk image"
+}
+```
+
+Values for the variables let's store in a separate file:
+```bash
+$ cat terraform.tfvars
+project = "infra-244217"
+public_key_path = "/Users/efimovi/Otus/DevOps_course/.ssh/gcp.pub"
+disk_image = "reddit-base"
+```
+
+And use these variables in main.tf:
+```hcl-terraform
+provider "google" {
+version = "2.0.0"
+project = "${var.project}"
+region = "${var.region}"
+}
+```
+
+
+```bash
+terraform destroy
+terraform plan
+terraofrm apply -auto-approve
+```
+
+###### Independent task :bangbang:
+* Added more variables
+* Because terraform.tfvars is not part of GIT repo(it has credentials and added to the .gitignore), we created 
+terraform.tfvars.example 
+
+###### Extra task :star:
+* Added multiple ssh keys for different users to the project metadata.
+* Added ssh key for appuser_web through the GCP UI. Noticed that each time we make changes in terraform 
+configuration, ssh keys are being re-writted(key introduced through GCP UI is being erased).
+* Add ssh keys for project only through the terraform
+* Ssh keys for the instance only are deprecated
+###### Extra task :star: :star:
+* Created lb.tf where have described load balancer
+* Created second instance(reddit-app2)
+* Removed second instance
+* Used parameter *count* in google_compute_instance to create multiple instances of current VM
+* Stopped puma service on one instance and checked that service is still available from load balancer(because it is 
+still running on the second instance)
+* Added load balancer and VMs ips to the output file
