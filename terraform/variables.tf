@@ -26,3 +26,8 @@ variable zone {
   description = "Zone where instance will be created"
   default     = "europe-west1-b"
 }
+
+variable instance_count {
+  description = "Number of instances to start"
+  default     = "1"
+}
