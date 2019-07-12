@@ -14,8 +14,14 @@ variable public_key_path {
   description = "Path to the public key used for ssh access"
 }
 
-variable disk_image {
-  description = "Disk image"
+variable app_disk_image {
+  description = "Disk image for VM where app is deployed"
+  default = "reddit-ruby-only"
+}
+
+variable db_disk_image {
+  description = "Disk image for VM where DB is running"
+  default = "reddit-db-only"
 }
 
 variable private_key_path {
