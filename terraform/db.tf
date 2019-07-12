@@ -1,4 +1,4 @@
-resource "google_compute_instance" "app" {
+resource "google_compute_instance" "db" {
   name         = "reddit-db-${count.index}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
