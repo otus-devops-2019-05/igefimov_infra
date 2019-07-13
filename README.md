@@ -314,3 +314,16 @@ configuration, ssh keys are being re-writted(key introduced through GCP UI is be
 * Stopped puma service on one instance and checked that service is still available from load balancer(because it is 
 still running on the second instance)
 * Added load balancer and VMs ips to the output file
+
+## Homework 6
+**Lesson 8 Принципы организации инфраструктурного кода и работа над инфраструктурой в команде на примере Terraform.** 
+* Imported firewall created in the GCP UI into the terraform infrastructure
+* Created firewall resource
+* Moved DB to a different VM images using Packer
+* Upload new images to GCP using Packer
+* Created app.tf db.tf and vpc.tf
+* Moved tf file into the modules
+* Created Stage and Prod envs and used previously created modules there
+* Used storage-bucket service from registry
+* Saved in S3 bucket our terraform.tfstate file
+
