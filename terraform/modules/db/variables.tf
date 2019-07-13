@@ -10,7 +10,7 @@ variable instance_count {
 
 variable db_disk_image {
   description = "Disk image for VM where DB is running"
-  default = "reddit-db-only"
+  default     = "reddit-db-only"
 }
 
 variable public_key_path {

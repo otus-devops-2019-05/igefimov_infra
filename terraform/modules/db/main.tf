@@ -3,7 +3,8 @@ resource "google_compute_instance" "db" {
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
-  count        = "${var.instance_count}"
+  count = "${var.instance_count}"
+
   tags = [
     "reddit-db",
   ]
@@ -30,7 +31,7 @@ resource "google_compute_firewall" "firewall_mongo" {
 
   allow {
     protocol = "tcp"
-    ports = ["27017"]
+    ports    = ["27017"]
   }
 
   target_tags = ["reddit-db"]

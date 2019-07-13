@@ -16,12 +16,12 @@ variable public_key_path {
 
 variable app_disk_image {
   description = "Disk image for VM where app is deployed"
-  default = "reddit-ruby-only"
+  default     = "reddit-ruby-only"
 }
 
 variable db_disk_image {
   description = "Disk image for VM where DB is running"
-  default = "reddit-db-only"
+  default     = "reddit-db-only"
 }
 
 variable private_key_path {

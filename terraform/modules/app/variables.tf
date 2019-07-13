@@ -10,7 +10,7 @@ variable instance_count {
 
 variable app_disk_image {
   description = "Disk image for VM where app is deployed"
-  default = "reddit-ruby-only"
+  default     = "reddit-ruby-only"
 }
 
 variable public_key_path {
@@ -20,5 +20,5 @@ variable public_key_path {
 
 variable env_prefix {
   description = "Prefix for the environment. Can be used in the name of VM"
-  default = "stage"
+  default     = "stage"
 }

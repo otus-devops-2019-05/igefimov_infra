@@ -3,7 +3,8 @@ resource "google_compute_instance" "app" {
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
-  count        = "${var.instance_count}"
+  count = "${var.instance_count}"
+
   tags = [
     "reddit-app",
   ]
@@ -15,7 +16,8 @@ resource "google_compute_instance" "app" {
   }
 
   network_interface {
-    network       = "default"
+    network = "default"
+
     access_config = {
       nat_ip = "${google_compute_address.app_ip.address}"
     }

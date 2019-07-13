@@ -2,7 +2,7 @@ resource "google_compute_instance_group" "app-cluster" {
   name = "app-cluster"
 
   instances = [
-    "${google_compute_instance.app.*.self_link}"
+    "${google_compute_instance.app.*.self_link}",
   ]
 
   named_port {
