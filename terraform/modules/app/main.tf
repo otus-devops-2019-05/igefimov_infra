@@ -38,9 +38,22 @@ resource "google_compute_instance" "app" {
     source      = "../files/puma.service"
     destination = "/tmp/puma.service"
   }
-  provisioner "remote-exec" {
-    script = "../files/deploy.sh"
+
+  provisioner "file" {
+    source      = "../files/deploy.sh"
+    destination = "/tmp/deploy.sh"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "${var.autodeploy == true ? local.autodeploy : local.info}"
+]
+  }
+}
+
+locals {
+  autodeploy="echo Environment='DATABASE_URL=${var.db_external_ip}:27017' >> '/tmp/puma.service' && sh /tmp/deploy.sh"
+  info="echo 'No deploy'"
 }
 
 resource "google_compute_address" "app_ip" {

@@ -325,5 +325,12 @@ still running on the second instance)
 * Moved tf file into the modules
 * Created Stage and Prod envs and used previously created modules there
 * Used storage-bucket service from registry
+
+###### Extra task :star:
 * Saved in S3 bucket our terraform.tfstate file
+
+###### Extra task :star: :star:
+* Updated Provisioner section
+* Provisioners are started(app is deployed or not) based on variable *autodeploy*
+* Application get IP of database from env variable DATABASE_URL
 

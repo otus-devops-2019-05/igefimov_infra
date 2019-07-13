@@ -27,3 +27,12 @@ variable env_prefix {
   description = "Prefix for the environment. Can be used in the name of VM"
   default     = "stage"
 }
+
+variable autodeploy {
+  description = "Deploys the app in case it is set to true"
+  default     = "false"
+}
+
+variable "db_external_ip" {
+  default = "127.0.0.1"
+}

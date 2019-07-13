@@ -17,3 +17,7 @@ variable public_key_path {
   # Variable description
   description = "Path to the public key used for ssh access"
 }
+
+variable "external_ip_app" {
+  description = "external ip from app-server for open firewall to mongodb"
+}

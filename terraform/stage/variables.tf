@@ -37,3 +37,8 @@ variable instance_count {
   description = "Number of instances to start"
   default     = "1"
 }
+
+variable autodeploy {
+  description = "Deploys the app in case it is set to true"
+  default     = "false"
+}
