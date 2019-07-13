@@ -26,6 +26,21 @@ resource "google_compute_instance" "app" {
   metadata {
     ssh-keys = "gcp:${file(var.public_key_path)}"
   }
+
+  # Here we define Provisioners and how they connect to the VM(protocol, credentials)
+  connection {
+    type        = "ssh"
+    user        = "gcp"
+    agent       = false
+    private_key = "${file(var.private_key_path)}"
+  }
+  provisioner "file" {
+    source      = "../files/puma.service"
+    destination = "/tmp/puma.service"
+  }
+  provisioner "remote-exec" {
+    script = "../files/deploy.sh"
+  }
 }
 
 resource "google_compute_address" "app_ip" {

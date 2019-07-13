@@ -18,6 +18,11 @@ variable public_key_path {
   description = "Path to the public key used for ssh access"
 }
 
+variable private_key_path {
+  # Variable description
+  description = "Path to the private key used by Provisioners(section in resource 'google_compute_instance' 'app') toconnect to the VM and do the job"
+}
+
 variable env_prefix {
   description = "Prefix for the environment. Can be used in the name of VM"
   default     = "stage"
