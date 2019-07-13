@@ -21,9 +21,9 @@ resource "google_compute_instance" "app" {
     }
   }
 
-    metadata {
-      ssh-keys = "gcp:${file(var.public_key_path)}"
-    }
+  metadata {
+    ssh-keys = "gcp:${file(var.public_key_path)}"
+  }
 }
 
 resource "google_compute_address" "app_ip" {
