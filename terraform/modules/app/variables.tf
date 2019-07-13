@@ -17,3 +17,8 @@ variable public_key_path {
   # Variable description
   description = "Path to the public key used for ssh access"
 }
+
+variable env_prefix {
+  description = "Prefix for the environment. Can be used in the name of VM"
+  default = "stage"
+}
