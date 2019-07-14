@@ -334,3 +334,14 @@ still running on the second instance)
 * Provisioners are started(app is deployed or not) based on variable *autodeploy*
 * Application get IP of database from env variable DATABASE_URL
 
+## Homework 8
+**Lesson 8 Управление конфигурацией.**
+* Installed ansibled
+* Learned how to create inventory file in old-fashion and YAML style
+* Tried manually modules: ping, command, shell, service, git
+* Created first playbook
+
+###### Extra task :star:
+* Created dynamic inventory: developed own python script that obtains list of VMs deployed in project using gcloud 
+command
+* We can use this script as inventory: ansible all -i inventory-script.py -m  ping
