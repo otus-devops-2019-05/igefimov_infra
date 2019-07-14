@@ -1,0 +1,8 @@
+project = "project-id"
+public_key_path = "~/.ssh/appuser.pub"
+app_disk_image = "APP base image"
+db_disk_image = "DB base image"
+private_key_path = "~/.ssh/appuser"
+zone = ""
+instance_count = "1"
+autodeploy = "true"
