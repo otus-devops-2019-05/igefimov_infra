@@ -2,7 +2,7 @@
   hosts: all
   vars:
     mongo_bind_ip: 0.0.0.0
-    db_host: 35.195.78.188
+    db_host: 104.155.25.210
   tasks:
 
     - name: Change mongo config file # Task name(description)
@@ -32,6 +32,21 @@
       become: true
       systemd: name=puma enabled=yes
       tags: app-tag
+
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/gcp/reddit
+        version: monolith # Specify branch
+      tags: deploy-tag
+      notify: reload puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/gcp/reddit # Where to execute command "bundle"
+      tags: deploy-tag
+
 
   handlers:
 
