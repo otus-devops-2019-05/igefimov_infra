@@ -2,8 +2,5 @@
   hosts: db
   become: true # execute play as a root user
 
-  vars:
-    mongo_bind_ip: 0.0.0.0
-
   roles:
     - db
