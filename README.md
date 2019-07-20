@@ -345,3 +345,18 @@ still running on the second instance)
 * Created dynamic inventory: developed own python script that obtains list of VMs deployed in project using gcloud 
 command
 * We can use this script as inventory: ansible all -i inventory-script.py -m  ping
+
+## Homework 9
+**Lesson 11 Продолжение знакомства с Ansible: templates, handlers, dynamic inventory, vault, tags.**
+* Created One playbook with one play
+* Created One playbook with multiple plays
+* Created Few playbooks with multiple plays
+* Used Ansible in the Provisioner section in Packer and baked again new VM images and uploaded them to GCP
+
+###### Extra task :star:
+I don't see any difference between this and last Homework with :star:
+You can reference to my previous homework to see how I use dynamic inventory
+
+
+
+

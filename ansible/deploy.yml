@@ -1,0 +1,20 @@
+- name: Deploy App
+  hosts: app
+  tags: app-tag
+  tasks:
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/gcp/reddit
+        version: monolith # Specify branch
+      notify: restart puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/gcp/reddit # Where to execute command "bundle"
+
+  handlers:
+  - name: restart puma
+    become: true
+    systemd: name=puma state=restarted
