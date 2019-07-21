@@ -13,7 +13,7 @@ echo '[TFLINT] Installing tflint'
 wget -O /tmp/tflint.zip https://github.com/wata727/tflint/releases/download/v0.7.4/tflint_linux_amd64.zip
 sudo unzip -o -d  /usr/local/bin/ /tmp/tflint.zip
 
-echo '[ANSIBLE-LINT] Intalling ansible-lint ==============='
+echo '[ANSIBLE-LINT] Intalling ansible-lint'
 pip install ansible-lint --user
 
 
@@ -36,7 +36,7 @@ cd ../..
 
 
 
-echo '[ANSIBLE] Validate site.yml ==============='
+echo '[ANSIBLE] Validate site.yml'
 cd ansible
 ansible-lint playbooks/site.yml --exclude=roles/jdauphant.nginx
 cd ..
