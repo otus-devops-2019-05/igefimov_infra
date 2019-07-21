@@ -357,6 +357,15 @@ command
 I don't see any difference between this and last Homework with :star:
 You can reference to my previous homework to see how I use dynamic inventory
 
+## Homework 10
+**Lesson 12 Принципы организации кода для управления конфигурацией.**
+* Started using Roles(app, db)
+* Started using community role for nginx
+* Used ansible Vault for encruption of user credentials
 
+###### Extra task :star:
+* CLoned and setted up trytravis project
+* Added my own script for TravisCI tests
 
+#TODO still need to polish custom script and properly finish 2 :star: tasks
 
