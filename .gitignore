@@ -9,3 +9,6 @@ packer/variables.json
 
 *.retry
 
+# community role
+jdauphant.nginx
+
