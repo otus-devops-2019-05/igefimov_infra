@@ -1,0 +1,6 @@
+- name: Configure MongoDB
+  hosts: db
+  become: true # execute play as a root user
+
+  roles:
+    - db
