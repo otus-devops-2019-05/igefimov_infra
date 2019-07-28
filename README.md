@@ -31,7 +31,7 @@ ssh -A -J gcp@35.210.33.211 gcp@10.132.0.5
 ssh-add /Users/efimovi/Otus/DevOps_course/.ssh/gcp
 ssh -A -J gcp@35.210.33.211 gcp@10.132.0.5
 ```
-**Problems:**
+**Problems** :sweat_smile:
 Sometimes ssh connection is hanging. Restart VM from GCP UI in order to fix it.
 
 ###### Extra task :star: :star: :star:
@@ -336,6 +336,9 @@ still running on the second instance)
 
 ## Homework 8
 **Lesson 8 Управление конфигурацией.**
+
+**git branch: ansible-1**
+
 * Installed ansibled
 * Learned how to create inventory file in old-fashion and YAML style
 * Tried manually modules: ping, command, shell, service, git
@@ -348,6 +351,9 @@ command
 
 ## Homework 9
 **Lesson 11 Продолжение знакомства с Ansible: templates, handlers, dynamic inventory, vault, tags.**
+
+**git branch: ansible-2**
+
 * Created One playbook with one play
 * Created One playbook with multiple plays
 * Created Few playbooks with multiple plays
@@ -359,6 +365,9 @@ You can reference to my previous homework to see how I use dynamic inventory
 
 ## Homework 10
 **Lesson 12 Принципы организации кода для управления конфигурацией.**
+
+**git branch: ansible-3**
+
 * Started using Roles(app, db)
 * Started using community role for nginx
 * Used ansible Vault for encruption of user credentials
@@ -369,3 +378,44 @@ You can reference to my previous homework to see how I use dynamic inventory
 
 #TODO still need to polish custom script and properly finish 2 :star: tasks
 
+
+
+## Homework 11
+**Локальная разработка Ansible ролей с Vagrant. Тестирование конфигурации.**
+
+**git branch: ansible-4**
+
+* Install VirtualBox - Vagrant here will create VMs
+* Installed Vagrant - tool used for local development
+* Describe our local infra using Vagrantfile. It will the same as we created in GCP using terraform
+* Vagrant Provisioning: let's use Ansible roles db & app
+* Vagrant automatically generates inventory file for Provisioning
+* Parametrized role. Now it can be used by diff users. Introduced variable deploy_user
+* Update Vagrant configuration for nginx role
+
+**Testing Ansible roles**
+* Use virtualenv to install all the testing tools
+* Install Molecule to create VMs and check its configuration
+* Install Testinfra to test roles
+
+
+**Problems** :sweat_smile:
+Run: packer build -force -var-file=packer/variables.json packer/db.json
+Faced this issue: https://github.com/hashicorp/packer/issues/5065
+Solution: add ANSIBLE_SSH_ARGS="-o IdentitiesOnly=yes" into the packer file(packer/db.json)
+
+###### Extra task :star:
+**Install own role**
+0) Created a new repo with role and pushed it to github
+1) Modify requirements file
+2) ansible-galaxy install -r environments/stage/requirements.yml
+
+**Start project**
+1) cd terraform/stage && terraform apply --auto-approve && cd ../..
+2) Get output from terraform & Change IP addresses in ansible/environments/stage/inventory
+3) Change db_host value in ansible/environments/stage/group_vars/app
+3) cd ansbile && ansible-galaxy install -r environments/stage/requirements.yml && cd ..
+4) cd ansible && ansible-playbook playbooks/site.yml
+
+**Release resources:**
+cd terraform/stage && terraform destroy --auto-approve && cd ../..
